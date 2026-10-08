@@ -966,7 +966,7 @@ def bytes_template(option_value, name):
     {% if b['contains'] %}
         {% if sys.version_info[0] >= 3 %}
     if not {{ b['contains'] }} in {{ name }}:
-        raise ValidationFailed(\"{{ name }} does not contain {{ b['contains'] }}\")
+        raise ValidationFailed({{ repr(name + " does not contain " + str(b['contains'])) }})
         {% else %}
     if not b\"{{ b['contains'].encode('string_escape') }}\" in {{ name }}:
         raise ValidationFailed(\"{{ name }} does not contain \")
@@ -975,7 +975,7 @@ def bytes_template(option_value, name):
     {% if b['prefix'] %}
         {% if sys.version_info[0] >= 3 %}
     if not {{ name }}.startswith({{ b['prefix'] }}):
-        raise ValidationFailed(\"{{ name }} does not start with prefix {{ b['prefix'] }}\")
+        raise ValidationFailed({{ repr(name + " does not start with prefix " + str(b['prefix'])) }})
         {% else %}
     if not {{name}}.startswith(b\"{{ b['prefix'].encode('string_escape') }}\"):
         raise ValidationFailed(\"{{ name }} does not start with prefix {{ b['prefix'].encode('string_escape') }}\")
@@ -984,7 +984,7 @@ def bytes_template(option_value, name):
     {% if b['suffix'] %}
         {% if sys.version_info[0] >= 3 %}
     if not {{ name }}.endswith({{ b['suffix'] }}):
-        raise ValidationFailed(\"{{ name }} does not end with suffix {{ b['suffix'] }}\")
+        raise ValidationFailed({{ repr(name + " does not end with suffix " + str(b['suffix'])) }})
         {% else %}
     if not {{name}}.endswith(b\"{{ b['suffix'].encode('string_escape') }}\"):
         raise ValidationFailed(\"{{ name }} does not end with suffix {{ b['suffix'] }}\")
